@@ -3,6 +3,6 @@ app:
     type:     annotation
 
 adr_book_add:
-    path:    /books
+    path:    /adr/books
     methods: POST
-    defaults: { _controller: app.action.add_book }
+    defaults: { _controller: 'ForumPhp2016\Action\AddBook' }

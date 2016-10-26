@@ -73,3 +73,9 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+dunglas_action:
+    directories: # List of directories relative to the kernel root directory containing classes to auto-register.
+        - '../src/*Bundle/{Controller,Action,Command,EventSubscriber}'
+        # This one is not registered by default
+        - '../src/ForumPhp2016/Action'

@@ -1,16 +1,1 @@
 services:
-    app.action.add_book:
-        class: 'ForumPhp2016\Action\AddBook'
-        arguments: ['@app.responder', '@serializer', '@app.manager.book']
-
-    app.responder:
-        class: 'ForumPhp2016\Responder\Responder'
-        arguments: ['@serializer']
-
-    app.manager.book:
-        class: 'ForumPhp2016\Domain\Model\BookManager'
-        arguments: ['@validator', '@doctrine', '@app.notifier']
-
-    app.notifier:
-        class: 'ForumPhp2016\Domain\Notifier\Notifier'
-        arguments: ['@mailer']
