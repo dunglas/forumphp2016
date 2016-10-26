@@ -6,9 +6,9 @@ use ForumPhp2016\Domain\Entity\Book;
 use ForumPhp2016\Domain\Exception\ValidationException;
 use ForumPhp2016\Domain\Model\BookManager;
 use ForumPhp2016\Responder\Responder;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 
 final class AddBook
@@ -26,9 +26,9 @@ final class AddBook
     /**
      * @Route("/adr/books", methods={"POST"})
      */
-    public function __invoke(Request $request) : Response
+    public function __invoke(ServerRequestInterface $request) : ResponseInterface
     {
-        $book = $this->serializer->deserialize($request->getContent(), Book::class, 'json');
+        $book = $this->serializer->deserialize($request->getBody()->getContents(), Book::class, 'json');
         $responder = $this->responder; // The invokable object must be assigned to a variable, not a propriety
 
         try {

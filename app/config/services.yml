@@ -1,1 +1,6 @@
 services:
+    app.response_factory:
+        class: 'Http\Factory\Diactoros\ResponseFactory'
+
+    app.stream_factory:
+        class: 'Http\Factory\Diactoros\StreamFactory'

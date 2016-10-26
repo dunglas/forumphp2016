@@ -2,6 +2,9 @@
 
 namespace ForumPhp2016\Responder;
 
+use Interop\Http\Factory\ResponseFactoryInterface;
+use Interop\Http\Factory\StreamFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -9,17 +12,29 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 final class Responder
 {
     private $serializer;
+    private $responseFactory;
+    private $streamFactory;
 
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(SerializerInterface $serializer, ResponseFactoryInterface $responseFactory, StreamFactoryInterface $streamFactory)
     {
         $this->serializer = $serializer;
+        $this->responseFactory = $responseFactory;
+        $this->streamFactory = $streamFactory;
     }
 
-    public function __invoke($data)
+    public function __invoke($data) : ResponseInterface
     {
         $status = $data instanceof ConstraintViolationListInterface ? 400 : 200;
         $json = $this->serializer->serialize($data, 'json', ['json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS]);
 
-        return new JsonResponse($json, $status, ['X-Frame-Options' => 'deny'], true);
+        $resource = fopen('php://temp', 'r+');
+        fwrite($resource, $json);
+
+        return $this
+            ->responseFactory
+            ->createResponse($status)
+            ->withBody($this->streamFactory->createStream($resource))
+            ->withHeader('X-Frame-Options', 'deny')
+        ;
     }
 }
