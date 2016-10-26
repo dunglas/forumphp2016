@@ -1,0 +1,8 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+adr_book_add:
+    path:    /books
+    methods: POST
+    defaults: { _controller: app.action.add_book }
