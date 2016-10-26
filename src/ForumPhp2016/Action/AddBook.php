@@ -6,6 +6,7 @@ use ForumPhp2016\Domain\Entity\Book;
 use ForumPhp2016\Domain\Exception\ValidationException;
 use ForumPhp2016\Domain\Model\BookManager;
 use ForumPhp2016\Responder\Responder;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -22,6 +23,9 @@ final class AddBook
         $this->bookManager = $bookManager;
     }
 
+    /**
+     * @Route("/adr/books", methods={"POST"})
+     */
     public function __invoke(Request $request) : Response
     {
         $book = $this->serializer->deserialize($request->getContent(), Book::class, 'json');

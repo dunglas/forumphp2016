@@ -2,7 +2,6 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-adr_book_add:
-    path:    /adr/books
-    methods: POST
-    defaults: { _controller: 'ForumPhp2016\Action\AddBook' }
+action:
+    resource: "../../src/ForumPhp2016/Action/"
+    type:     annotation
