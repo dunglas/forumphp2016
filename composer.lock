@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "535204f92ae400e72d7d0e50426f6c63",
-    "content-hash": "892395d71c656305afc041aab1a130c0",
+    "hash": "3d81ebc882506393fec8c7984208dd44",
+    "content-hash": "4cd8be4892ef85a1f7b30297f33b0804",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -939,6 +939,58 @@
                 "psr-7"
             ],
             "time": "2016-08-27 13:34:54"
+        },
+        {
+            "name": "http-interop/http-middleware",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/http-interop/http-middleware.git",
+                "reference": "ff545c87e97bf4d88f0cb7eb3e89f99aaa53d7a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/http-interop/http-middleware/zipball/ff545c87e97bf4d88f0cb7eb3e89f99aaa53d7a9",
+                "reference": "ff545c87e97bf4d88f0cb7eb3e89f99aaa53d7a9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Interop\\Http\\Middleware\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP middleware",
+            "keywords": [
+                "factory",
+                "http",
+                "middleware",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2016-09-25 13:30:27"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2401,7 +2453,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "http-interop/http-factory-diactoros": 20,
-        "http-interop/http-factory": 20
+        "http-interop/http-factory": 20,
+        "http-interop/http-middleware": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -15,14 +15,17 @@ final class Responder
     private $responseFactory;
     private $streamFactory;
 
-    public function __construct(SerializerInterface $serializer, ResponseFactoryInterface $responseFactory, StreamFactoryInterface $streamFactory)
-    {
+    public function __construct(
+        SerializerInterface $serializer,
+        ResponseFactoryInterface $responseFactory,
+        StreamFactoryInterface $streamFactory
+    ) {
         $this->serializer = $serializer;
         $this->responseFactory = $responseFactory;
         $this->streamFactory = $streamFactory;
     }
 
-    public function __invoke($data) : ResponseInterface
+    public function __invoke($data, ResponseInterface $response = null) : ResponseInterface
     {
         $status = $data instanceof ConstraintViolationListInterface ? 400 : 200;
         $json = $this->serializer->serialize($data, 'json', ['json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS]);
@@ -30,9 +33,13 @@ final class Responder
         $resource = fopen('php://temp', 'r+');
         fwrite($resource, $json);
 
-        return $this
-            ->responseFactory
-            ->createResponse($status)
+        if (null === $response) {
+            $response = $this->responseFactory->createResponse($status);
+        } else {
+            $response = $response->withStatus($status);
+        }
+
+        return $response
             ->withBody($this->streamFactory->createStream($resource))
             ->withHeader('X-Frame-Options', 'deny')
         ;
